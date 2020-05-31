@@ -1,18 +1,16 @@
 <?php
+require './vendor/autoload.php';
 
-use vendor\BotMan\BotMan;
-
+use BotMan\BotMan\BotMan;
+use BotMan\BotMan\BotManFactory;
+use BotMan\BotMan\Drivers\DriverManager;
 
 $config = [
-	'facebook' => [
-  	'token' => 'EAANubfLJEDEBAHht1v8ooEKqSMnL2rFFHZAOTVjtv7oBEfzqUAUIIEjfmpTjdYRR5piPDSPNk5OIdybCJzytSEzWFpzLcfJoV1trA01nnwFdoiqlE2hxjrqTnJEKgUzVFGJyx2isvZA5X3VoQZAFV0VfLEZAZA3cXFNFftru7MgZDZD',
-	'app_secret' => 'b30e56607d11f75f666d869d1398ccaa',
-    'verification'=>'123',
+   'facebook' => [
+  	'token' => 'EAANOvZBXEOzwBAPgubi86sTE5CqhlcqIsFxGZBmIiTtneJxaZAiGa5LKl2eJFWjSroZBPZB1G7ysbVzJZACuYZCqO3yFciCBVfQwIArKUaxGHSEs4eZCDOLIv7sQgZCO0AU1LkdVsE0DmcZC6mcvxuWH0ZAgD3hGdfDupc6zNEjeZCmTmQZDZD',
+	'app_secret' => '5bd19fb4829097baac701d0206483c3f',
+    'verification'=>'abc_123',
 ]
-    // Your driver-specific configuration
-    // "telegram" => [
-    //    "token" => "TOKEN"
-    // ]
 ];
 
 // Load the driver(s) you want to use
@@ -24,6 +22,17 @@ $botman = BotManFactory::create($config);
 // Give the bot something to listen for.
 $botman->hears('hello', function (BotMan $bot) {
     $bot->reply('Hello yourself.');
+});
+$botman->hears('hello', function (BotMan $bot) {
+    $bot->reply(ButtonTemplate::create('Do you want to know more about BotMan?')
+	->addButton(ElementButton::create('Tell me more')
+	    ->type('postback')
+	    ->payload('tellmemore')
+	)
+	->addButton(ElementButton::create('Show me the docs')
+	    ->url('http://botman.io/')
+	)
+);
 });
 
 // Start listening
