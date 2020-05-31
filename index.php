@@ -1,8 +1,7 @@
 <?php
 
 use vendor\BotMan\BotMan;
-use vendor\BotMan\BotManFactory;
-use vendor\BotMan\Drivers\DriverManager;
+
 
 $config = [
 	'facebook' => [
