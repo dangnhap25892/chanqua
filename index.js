@@ -10,6 +10,12 @@ app.get('/', function(req, res){
 var mangUsersOnline = [];
 
 io.on('connection', function(socket){
+	
+	io.sockets.emit("huhu", "helo");
+
+   socket.on("hi", function(data){
+    io.sockets.emit("huhu", data);
+  });
   
   //kiemtra login
  if (socket.Username == undefined)
